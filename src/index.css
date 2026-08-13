@@ -57,3 +57,18 @@ select {
   font-family: inherit;
   font-size: inherit;
 }
+
+/* Kontrollflater inni en widget (skrivestørrelse, legg-til-knapper osv.) er skjult
+   til man holder musepekeren over widgeten - plain/global klasser siden de krysser
+   flere CSS-moduler (WidgetShell + hver enkelt widget). */
+.widget-hover-controls {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+.widget-hover-target:hover .widget-hover-controls,
+.widget-hover-target:focus-within .widget-hover-controls {
+  opacity: 1;
+  pointer-events: auto;
+}

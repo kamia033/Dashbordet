@@ -2,7 +2,7 @@ import styles from './WidgetShell.module.css';
 
 export default function WidgetShell({ icon: Icon, title, color, onDelete, children }) {
   return (
-    <div className={styles.shell} style={{ '--widget-color': color }}>
+    <div className={`${styles.shell} widget-hover-target`} style={{ '--widget-color': color }}>
       <div className={`${styles.header} widget-drag-handle`}>
         <div className={styles.headerLeft}>
           {Icon && <Icon size={16} />}

@@ -1,8 +1,10 @@
-import { Clock, ListTodo, Target, Heart, ImageIcon } from 'lucide-react';
+import { Clock, ListTodo, Target, Heart, ImageIcon, MessageSquare, Sparkles } from 'lucide-react';
 import ClockWidget from './ClockWidget.jsx';
 import ScheduleWidget from './ScheduleWidget.jsx';
 import GoalWidget from './GoalWidget.jsx';
 import ImageWidget from './ImageWidget.jsx';
+import MessageWidget from './MessageWidget.jsx';
+import KiWidget from './KiWidget.jsx';
 
 /**
  * Sentralt register for alle widget-typer.
@@ -54,6 +56,24 @@ export const WIDGET_REGISTRY = [
     defaultSize: { width: 320, height: 260 },
     defaultData: { imageId: null },
     component: ImageWidget,
+  },
+  {
+    type: 'message',
+    label: 'Beskjed',
+    icon: MessageSquare,
+    color: '#FFEEDD', // pastellfarge for widgeten - bytt denne for å endre fargen
+    defaultSize: { width: 320, height: 220 },
+    defaultData: { text: '', fontSize: 24 },
+    component: MessageWidget,
+  },
+  {
+    type: 'ki',
+    label: 'KI',
+    icon: Sparkles,
+    color: '#E1F7EF', // pastellfarge for widgeten - bytt denne for å endre fargen
+    defaultSize: { width: 320, height: 280 },
+    defaultData: { imageId: null },
+    component: KiWidget,
   },
 ];
 
