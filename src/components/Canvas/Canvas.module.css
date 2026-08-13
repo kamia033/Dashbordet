@@ -9,6 +9,14 @@
   position: relative;
   flex: 1;
   overflow: auto;
+  background: var(--color-bg);
+}
+
+.canvasSurface {
+  position: relative;
+  width: 2600px;
+  height: 1500px;
+  transform-origin: top left;
   background-image: radial-gradient(circle, #dbe3f5 1px, transparent 1px);
   background-size: 24px 24px;
 }
