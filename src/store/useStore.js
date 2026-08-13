@@ -8,21 +8,29 @@ function persist(set, get) {
   saveSubjects(get().subjects);
 }
 
+// Eldre lagrede data hadde et mappe-niv\u00e5 mellom fag og sider - flat ut til bare sider
+function migrateSubjects(subjects) {
+  return subjects.map((subject) => {
+    if (Array.isArray(subject.pages)) return subject;
+    const { folders, ...rest } = subject;
+    return { ...rest, pages: (folders ?? []).flatMap((folder) => folder.pages ?? []) };
+  });
+}
+
 export const useAppStore = create((set, get) => ({
   subjects: [],
   currentSubjectId: null,
-  currentFolderId: null,
   currentPageId: null,
   view: 'dashboard',
   hasHydrated: false,
 
   async hydrate() {
-    const subjects = await loadSubjects();
+    const subjects = migrateSubjects(await loadSubjects());
     set({ subjects, hasHydrated: true });
   },
 
   addSubject(name) {
-    const subject = { id: createId(), name, folders: [] };
+    const subject = { id: createId(), name, pages: [] };
     set((state) => ({ subjects: [...state.subjects, subject] }));
     persist(set, get);
     return subject.id;
@@ -32,82 +40,37 @@ export const useAppStore = create((set, get) => ({
     set((state) => ({
       subjects: state.subjects.filter((s) => s.id !== subjectId),
       currentSubjectId: state.currentSubjectId === subjectId ? null : state.currentSubjectId,
-      currentFolderId: state.currentSubjectId === subjectId ? null : state.currentFolderId,
     }));
     persist(set, get);
   },
 
   selectSubject(subjectId) {
-    set({ currentSubjectId: subjectId, currentFolderId: null, currentPageId: null });
+    set({ currentSubjectId: subjectId, currentPageId: null });
   },
 
-  addFolder(subjectId, name) {
-    const folder = { id: createId(), name, pages: [] };
-    set((state) => ({
-      subjects: state.subjects.map((s) =>
-        s.id === subjectId ? { ...s, folders: [...s.folders, folder] } : s
-      ),
-    }));
-    persist(set, get);
-    return folder.id;
-  },
-
-  deleteFolder(subjectId, folderId) {
-    set((state) => ({
-      subjects: state.subjects.map((s) =>
-        s.id === subjectId ? { ...s, folders: s.folders.filter((f) => f.id !== folderId) } : s
-      ),
-      currentFolderId: state.currentFolderId === folderId ? null : state.currentFolderId,
-    }));
-    persist(set, get);
-  },
-
-  selectFolder(folderId) {
-    set({ currentFolderId: folderId, currentPageId: null });
-  },
-
-  addPage(subjectId, folderId, name, templateId) {
+  addPage(subjectId, name, templateId) {
     const widgets = getTemplate(templateId).build();
     const page = { id: createId(), name, widgets };
     set((state) => ({
       subjects: state.subjects.map((s) =>
-        s.id === subjectId
-          ? {
-              ...s,
-              folders: s.folders.map((f) =>
-                f.id === folderId ? { ...f, pages: [...f.pages, page] } : f
-              ),
-            }
-          : s
+        s.id === subjectId ? { ...s, pages: [...s.pages, page] } : s
       ),
     }));
     persist(set, get);
     return page.id;
   },
 
-  deletePage(subjectId, folderId, pageId) {
+  deletePage(subjectId, pageId) {
     set((state) => ({
       subjects: state.subjects.map((s) =>
-        s.id === subjectId
-          ? {
-              ...s,
-              folders: s.folders.map((f) =>
-                f.id === folderId ? { ...f, pages: f.pages.filter((p) => p.id !== pageId) } : f
-              ),
-            }
-          : s
+        s.id === subjectId ? { ...s, pages: s.pages.filter((p) => p.id !== pageId) } : s
       ),
     }));
     persist(set, get);
   },
 
-  openPage(subjectId, folderId, pageId) {
-    set({
-      currentSubjectId: subjectId,
-      currentFolderId: folderId,
-      currentPageId: pageId,
-      view: 'canvas',
-    });
+  openPage(subjectId, pageId) {
+    set({ currentSubjectId: subjectId, currentPageId: pageId, view: 'canvas' });
   },
 
   goToDashboard() {
@@ -121,15 +84,8 @@ export const useAppStore = create((set, get) => ({
           ? s
           : {
               ...s,
-              folders: s.folders.map((f) =>
-                f.id !== state.currentFolderId
-                  ? f
-                  : {
-                      ...f,
-                      pages: f.pages.map((p) =>
-                        p.id !== state.currentPageId ? p : { ...p, widgets: updater(p.widgets) }
-                      ),
-                    }
+              pages: s.pages.map((p) =>
+                p.id !== state.currentPageId ? p : { ...p, widgets: updater(p.widgets) }
               ),
             }
       ),

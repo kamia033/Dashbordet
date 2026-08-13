@@ -4,17 +4,21 @@ import { useAppStore } from '../../store/useStore.js';
 import { TEMPLATES } from '../../templates/templates.js';
 import styles from './NewPageModal.module.css';
 
-export default function NewPageModal({ subjectId, folderId, onClose }) {
+function getDefaultPageName() {
+  return new Date().toLocaleDateString('nb-NO', { day: '2-digit', month: '2-digit', year: 'numeric' });
+}
+
+export default function NewPageModal({ subjectId, onClose }) {
   const addPage = useAppStore((s) => s.addPage);
   const openPage = useAppStore((s) => s.openPage);
-  const [name, setName] = useState('');
+  const [name, setName] = useState(getDefaultPageName);
   const [templateId, setTemplateId] = useState(TEMPLATES[0].id);
 
   function handleSubmit(e) {
     e.preventDefault();
-    const pageName = name.trim() || 'Ny side';
-    const pageId = addPage(subjectId, folderId, pageName, templateId);
-    openPage(subjectId, folderId, pageId);
+    const pageName = name.trim() || getDefaultPageName();
+    const pageId = addPage(subjectId, pageName, templateId);
+    openPage(subjectId, pageId);
     onClose();
   }
 
@@ -39,6 +43,7 @@ export default function NewPageModal({ subjectId, folderId, onClose }) {
             placeholder="F.eks. Mandag time 3"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            onFocus={(e) => e.target.select()}
             autoFocus
           />
 

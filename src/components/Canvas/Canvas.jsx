@@ -26,8 +26,7 @@ function clampZoom(value) {
 function usePageSelector() {
   return useAppStore((s) => {
     const subject = s.subjects.find((x) => x.id === s.currentSubjectId);
-    const folder = subject?.folders.find((x) => x.id === s.currentFolderId);
-    return folder?.pages.find((x) => x.id === s.currentPageId) ?? null;
+    return subject?.pages.find((x) => x.id === s.currentPageId) ?? null;
   });
 }
 

@@ -1,0 +1,55 @@
+{
+  "hash": "ab5de3e9",
+  "configHash": "e90502d2",
+  "lockfileHash": "9e143273",
+  "browserHash": "e2c10fce",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "658cf8f4",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "ed90c347",
+      "needsInterop": true
+    },
+    "react-rnd": {
+      "src": "../../node_modules/react-rnd/lib/index.js",
+      "file": "react-rnd.js",
+      "fileHash": "0b1c1da0",
+      "needsInterop": false
+    },
+    "zustand": {
+      "src": "../../node_modules/zustand/esm/index.mjs",
+      "file": "zustand.js",
+      "fileHash": "fbd61336",
+      "needsInterop": false
+    },
+    "lucide-react": {
+      "src": "../../node_modules/lucide-react/dist/esm/lucide-react.js",
+      "file": "lucide-react.js",
+      "fileHash": "c4b999fc",
+      "needsInterop": false
+    },
+    "localforage": {
+      "src": "../../node_modules/localforage/dist/localforage.js",
+      "file": "localforage.js",
+      "fileHash": "ddaae9ef",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-ZU5SFTFX": {
+      "file": "chunk-ZU5SFTFX.js"
+    },
+    "chunk-QTVD6AVW": {
+      "file": "chunk-QTVD6AVW.js"
+    },
+    "chunk-PR4QN5HX": {
+      "file": "chunk-PR4QN5HX.js"
+    }
+  }
+}

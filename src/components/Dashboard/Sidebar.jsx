@@ -13,7 +13,7 @@ export default function Sidebar() {
   const items = subjects.map((subject) => ({
     id: subject.id,
     name: subject.name,
-    meta: `${subject.folders.length} mappe(r)`,
+    meta: `${subject.pages.length} side(r)`,
   }));
 
   return (
