@@ -1,0 +1,38 @@
+.canvasPage {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+}
+
+.canvasArea {
+  position: relative;
+  flex: 1;
+  overflow: auto;
+  background-image: radial-gradient(circle, #dbe3f5 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.rnd {
+  display: flex;
+}
+
+.hint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--color-text-muted);
+  text-align: center;
+  max-width: 24rem;
+  padding: var(--space-4);
+}
+
+.notFound {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
