@@ -32,20 +32,20 @@ export const WIDGET_REGISTRY = [
   },
   {
     type: 'fagligMal',
-    label: 'Faglig mål',
+    label: 'Faglige mål',
     icon: Target,
     color: '#E4F7E9', // pastellfarge for widgeten - bytt denne for å endre fargen
     defaultSize: { width: 340, height: 220 },
-    defaultData: { title: 'Faglig mål', lines: [{ id: 'linje-1', text: '' }] },
+    defaultData: { title: 'Faglige mål', lines: [{ id: 'linje-1', text: '' }] },
     component: GoalWidget,
   },
   {
     type: 'sosialtMal',
-    label: 'Sosialt mål',
+    label: 'Sosiale mål',
     icon: Heart,
     color: '#FDE2E4', // pastellfarge for widgeten - bytt denne for å endre fargen
     defaultSize: { width: 340, height: 220 },
-    defaultData: { title: 'Sosialt mål', lines: [{ id: 'linje-1', text: '' }] },
+    defaultData: { title: 'Sosiale mål', lines: [{ id: 'linje-1', text: '' }] },
     component: GoalWidget,
   },
   {
