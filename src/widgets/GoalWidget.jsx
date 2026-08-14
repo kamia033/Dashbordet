@@ -30,7 +30,7 @@ export default function GoalWidget({ data, onChange }) {
 
   return (
     <div className={styles.goal}>
-      <h3 className={styles.title}>{data.title}</h3>
+     
       <div className={styles.bubbles}>
         {lines.map((line, index) => (
           <div key={line.id} className={styles.bubble}>
